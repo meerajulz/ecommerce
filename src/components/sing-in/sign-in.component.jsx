@@ -6,6 +6,7 @@ import {
 } from '../../utils/firebase.utils';
 import FormInput from '../form-input/form-input.component';
 import Button from '../button/button.component';
+
 import './sign-in.styles.scss';
 
 const defaultFormValues = {
@@ -17,8 +18,8 @@ const SignInForm = () => {
   //SIng in with google button
   const signInWithGoogle = async () => {
     try {
-      const { user } = await signInWithGooglePopup();
-      const userDocRef = await createUserDocumentFromAuth(user);
+     await signInWithGooglePopup();
+
     }
     catch (error) {
         if (error.code === 'auth/popup-closed-by-user') {
@@ -31,10 +32,11 @@ const SignInForm = () => {
   
   };
 
+  console.log('HIT')
+
   const [formFields, setFormFields] = useState(defaultFormValues);
   const { email, password } = formFields;
 
-  //   console.log(formFields);
 
   const resetFormFields = () => {
     setFormFields(defaultFormValues);
@@ -48,8 +50,8 @@ const SignInForm = () => {
   const handleSubmit = async event => {
     event.preventDefault();
     try {
-      const response = await signInAuthWithEmailAndPassword(email, password);
-      console.log(response);
+      const {user} = await signInAuthWithEmailAndPassword(email, password);
+
       resetFormFields();
     } catch (error) {
       switch (error.code) {
@@ -59,8 +61,9 @@ const SignInForm = () => {
         case 'auth/wrong-password':
           alert('Wrong password');
           break;
+
         default:
-          console.error('auth/invalid-credential: ' + error.message);
+          alert('auth/invalid-credential: ' + error.message);
       }
     }
   };
@@ -92,7 +95,7 @@ const SignInForm = () => {
           }}
         />
 
-<div className='buttons-container'>
+        <div className='buttons-container'>
           <Button type='submit'>Sign In</Button>
           <Button type='button' buttonType='google' onClick={signInWithGoogle}>
             Google sign in

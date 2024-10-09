@@ -1,8 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
+
 import './index.scss';
 import App from './App';
+import { UserProvider } from './context/user.context';
+
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -10,10 +13,14 @@ root.render( <
     React.StrictMode >
     <
     BrowserRouter >
+
+    { /* Wrap your app with UserProvider to provide user data to all components */ } <
+    UserProvider >
     <
     App / >
     <
-    /BrowserRouter>{' '} <
+    /UserProvider> <
+    /BrowserRouter> <
     /React.StrictMode>
 );
 
