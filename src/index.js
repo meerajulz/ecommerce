@@ -12,22 +12,18 @@ import { CartProvider } from './context/cart.context';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render( <
-    React.StrictMode >
-    <
-    BrowserRouter > { ' ' } { /* Wrap your app with UserProvider to provide user data to all components */ } { ' ' } <
-    UserProvider > { ' ' } { /* Wrap your app with ProductsProvider to provide products data to all components */ } { ' ' } <
-    CategoriesProvider >
-    <
-    CartProvider >
-    <
-    App / >
-    <
-    /CartProvider>{' '} <
-    /CategoriesProvider>{' '} <
-    /UserProvider>{' '} <
-    /BrowserRouter>{' '} <
-    /React.StrictMode>
+root.render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <UserProvider>
+        <CategoriesProvider>
+          <CartProvider>
+            <App />
+          </CartProvider>{' '}
+        </CategoriesProvider>{' '}
+      </UserProvider>{' '}
+    </BrowserRouter>{' '}
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
