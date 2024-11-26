@@ -1,16 +1,21 @@
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { Fragment, useContext } from 'react';
 import { ReactComponent as CrwnLogo } from '../../assets/crown.svg';
 
 import CartIcon from '../../components/card-icon/cart-icon.component';
 import CardDropdown from '../../components/cart-dropdown/cart-dropdown.component';
-
 import { UserContext } from '../../context/user.context';
 import { CartContext } from '../../context/cart.context';
-
 import { signOutUser } from '../../utils/firebase.utils';
 
-import './navigation.style.scss';
+import {
+  NavigationContainer,
+  LogoContainer,
+  NavLinksContainer,
+  NavLinks,
+} from './navigation.style.jsx';
+
+//import './navigation.style.jsx';
 
 const Navigation = () => {
   //why we take curretUser from the context?
@@ -19,18 +24,18 @@ const Navigation = () => {
   //why we take isCartOpen from the context?
   //The CartContext provides the current cart open state and a function to update the cart open state.
   //So, when the navigation component renders, it will display the cart icon and the dropdown menu if the cart is open.
-  const {isCartOpen} = useContext(CartContext);
+  const { isCartOpen } = useContext(CartContext);
 
   return (
     <Fragment>
-      <div className='navigation'>
-        <Link className='logo-container' to='/'>
+      <NavigationContainer>
+        <LogoContainer className='logo-container' to='/'>
           <CrwnLogo className='logo'>Logo</CrwnLogo>
-        </Link>
-        <div className='nav-links-container'>
-          <Link className='nav-link' to='/shop'>
+        </LogoContainer>
+        <NavLinksContainer>
+          <NavLinks className='nav-link' to='/shop'>
             SHOP
-          </Link>
+          </NavLinks>
           {/* // Create the navigation links based on the current user and the UserContext 
               if setCurrentUser is not null, then show the "SIGN OUT" link; otherwise, show the "SING IN" link.
               */}
@@ -39,15 +44,15 @@ const Navigation = () => {
               SIGN OUT
             </span>
           ) : (
-            <Link className='nav-link' to='/auth'>
+            <NavLinks className='nav-link' to='/auth'>
               SING IN
-            </Link>
+            </NavLinks>
           )}
           <CartIcon />
-        </div>
+        </NavLinksContainer>
         {/* isCartOpen is a boolean value that determines whether the cart dropdown menu is open or not.*/}
-        {isCartOpen && <CardDropdown/>}
-      </div>
+        {isCartOpen && <CardDropdown />}
+      </NavigationContainer>
       <Outlet />
     </Fragment>
   );

@@ -8,7 +8,7 @@ import CartItem from '../cart-item/cart-item.component';
 
 import './cart-dropdown.styles.scss';
 
-const CardDropdown = () => {
+const CartDropdown = () => {
   const { cartItems } = useContext(CartContext);
   const navigate = useNavigate();
 
@@ -23,9 +23,9 @@ const CardDropdown = () => {
           <CartItem key={item.id} cartItem={item} />
         ))}
       </div>
-
       <Button onClick={goToCheckoutHandler}>GO TO CHECKOUT</Button>
     </div>
   );
 };
-export default CardDropdown;
+
+export default CartDropdown;
